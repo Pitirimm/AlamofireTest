@@ -5,8 +5,13 @@
 //  Created by Yuriy Martinovskiy on 29.06.2021.
 //
 
-struct AmiiboModel {
+struct AmiiboModel: Decodable {
     let amiibo: [AmiiboInfo]
+    
+    static func getData(from value: Any) -> AmiiboModel? {
+        guard let amiiboData = value as? AmiiboModel else { return nil }
+        return amiiboData
+    }
     
     static func getAmiibo() -> AmiiboModel {
         let amiibo = AmiiboModel(amiibo: [
@@ -55,10 +60,11 @@ struct AmiiboModel {
     }
 }
 
-struct AmiiboInfo {
+struct AmiiboInfo: Decodable {
     let amiiboSeries: String
     let character: String
     let gameSeries: String
     let name: String
     let image: String
+   
 }

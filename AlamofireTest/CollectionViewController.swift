@@ -6,27 +6,37 @@
 //
 
 import UIKit
+import Alamofire
 
 class CollectionViewController: UICollectionViewController {
     
     let amiiboURL = "https://www.amiiboapi.com/api/amiibo/?type=%20Figure"
-    let amiibo = AmiiboModel.getAmiibo()
-    let itemsPerRaw: CGFloat = 3
+    var amiibo: [AmiiboInfo] = []
+    let itemsPerRaw: CGFloat = 2
     let sectionInserts = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alamofireGetData()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return amiibo.amiibo.count
+        return amiibo.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! AmiiboCell
-        guard let imageURL = URL(string: amiibo.amiibo[indexPath.item].image) else { return cell }
+        guard let imageURL = URL(string: amiibo[indexPath.item].image) else { return cell }
         
-        cell.backgroundColor = .blue
+        switch amiibo[indexPath.item].amiiboSeries {
+        case "Super Smash Bros.":
+            cell.backgroundColor = UIColor(red: 46/255, green: 255/255, blue: 208/255, alpha: 1.0)
+        case "Super Mario Bros.":
+            cell.backgroundColor = UIColor(red: 150/255, green: 139/255, blue: 255/255, alpha: 1.0)
+        default:
+            cell.backgroundColor = .systemPink
+        }
+        
         cell.layer.cornerRadius = 15.0
         
         cell.layer.shadowColor = UIColor.lightGray.cgColor
@@ -55,6 +65,33 @@ class CollectionViewController: UICollectionViewController {
         
         
         return cell
+    }
+    
+    func alamofireGetData() {
+        AF.request(amiiboURL)
+            .validate()
+            .responseJSON { dataResponse in
+                switch dataResponse.result {
+                case .success(let value):
+                    guard let jsonData = value as? [String: Any] else { return }
+                    guard let amiiboInfo = jsonData["amiibo"] as? Array<[String: Any]> else { return }
+                    
+                    for dictAmiibo in amiiboInfo {
+                       let amiibo = AmiiboInfo(amiiboSeries: dictAmiibo["amiiboSeries"] as! String,
+                                               character: dictAmiibo["character"] as! String,
+                                               gameSeries: dictAmiibo["gameSeries"] as! String,
+                                               name: dictAmiibo["name"] as! String,
+                                               image: dictAmiibo["image"] as! String)
+                        
+                        self.amiibo.append(amiibo)
+                    }
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
     }
 }
 
