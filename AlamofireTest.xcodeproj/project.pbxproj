@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		999C8ED4268B404F00418C31 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999C8ED3268B404F00418C31 /* CollectionViewController.swift */; };
 		999C8ED6268B43CD00418C31 /* AmiiboCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999C8ED5268B43CD00418C31 /* AmiiboCell.swift */; };
 		999C8ED8268B45B700418C31 /* AmiiboModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999C8ED7268B45B700418C31 /* AmiiboModel.swift */; };
+		99BCD7D2268C8BAD003E8DE4 /* AmiiboDetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BCD7D1268C8BAD003E8DE4 /* AmiiboDetailInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		999C8ED3268B404F00418C31 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		999C8ED5268B43CD00418C31 /* AmiiboCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmiiboCell.swift; sourceTree = "<group>"; };
 		999C8ED7268B45B700418C31 /* AmiiboModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmiiboModel.swift; sourceTree = "<group>"; };
+		99BCD7D1268C8BAD003E8DE4 /* AmiiboDetailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmiiboDetailInfo.swift; sourceTree = "<group>"; };
 		ADD62402DB1DAB07CA0DAF06 /* Pods-AlamofireTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlamofireTest.debug.xcconfig"; path = "Target Support Files/Pods-AlamofireTest/Pods-AlamofireTest.debug.xcconfig"; sourceTree = "<group>"; };
 		E43B7B218DF9B5F2C4121BE8 /* Pods_AlamofireTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlamofireTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -70,6 +72,7 @@
 				999C8EBF268B3C0400418C31 /* AppDelegate.swift */,
 				999C8EC1268B3C0400418C31 /* SceneDelegate.swift */,
 				999C8ED3268B404F00418C31 /* CollectionViewController.swift */,
+				99BCD7D1268C8BAD003E8DE4 /* AmiiboDetailInfo.swift */,
 				999C8ED7268B45B700418C31 /* AmiiboModel.swift */,
 				999C8ED5268B43CD00418C31 /* AmiiboCell.swift */,
 				999C8EC5268B3C0400418C31 /* Main.storyboard */,
@@ -94,7 +97,6 @@
 				ADD62402DB1DAB07CA0DAF06 /* Pods-AlamofireTest.debug.xcconfig */,
 				8CE8EFBE9CBA122F1B0E6DEA /* Pods-AlamofireTest.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -217,6 +219,7 @@
 				999C8EC2268B3C0400418C31 /* SceneDelegate.swift in Sources */,
 				999C8ED4268B404F00418C31 /* CollectionViewController.swift in Sources */,
 				999C8ED8268B45B700418C31 /* AmiiboModel.swift in Sources */,
+				99BCD7D2268C8BAD003E8DE4 /* AmiiboDetailInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

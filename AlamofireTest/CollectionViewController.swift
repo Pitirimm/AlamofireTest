@@ -9,14 +9,18 @@ import UIKit
 import Alamofire
 
 class CollectionViewController: UICollectionViewController {
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let amiiboURL = "https://www.amiiboapi.com/api/amiibo/?type=%20Figure"
     var amiibo: [AmiiboInfo] = []
     let itemsPerRaw: CGFloat = 2
     let sectionInserts = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    var name: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
         alamofireGetData()
     }
     
@@ -40,11 +44,11 @@ class CollectionViewController: UICollectionViewController {
         cell.layer.cornerRadius = 15.0
         
         cell.layer.shadowColor = UIColor.lightGray.cgColor
-        cell.layer.shadowOffset = CGSize(width:0,height: 5.0)
-        cell.layer.shadowRadius = 2.0
+        cell.layer.shadowOffset = CGSize(width:0,height: 2.0)
+        cell.layer.shadowRadius = 15.0
         cell.layer.shadowOpacity = 1.0
         cell.layer.masksToBounds = false;
-        cell.layer.shadowPath = UIBezierPath(roundedRect:cell.bounds, cornerRadius:cell.contentView.layer.cornerRadius).cgPath
+        cell.layer.shadowPath = UIBezierPath(roundedRect:cell.bounds, cornerRadius:15.0).cgPath
         
         URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
             if let error = error {
@@ -67,6 +71,15 @@ class CollectionViewController: UICollectionViewController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "AmiiboDetailInfo") as? AmiiboDetailInfo
+        vc?.name = amiibo[indexPath.item].name
+        vc?.game = amiibo[indexPath.item].gameSeries
+        vc?.image = amiibo[indexPath.item].image
+        self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
     func alamofireGetData() {
         AF.request(amiiboURL)
             .validate()
@@ -87,6 +100,7 @@ class CollectionViewController: UICollectionViewController {
                     }
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        self.activityIndicator.stopAnimating()
                     }
                 case .failure(let error):
                     print(error)
